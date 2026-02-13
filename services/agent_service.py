@@ -2,9 +2,12 @@ from datetime import datetime
 
 from infraestructure.embbedings.embbedings import embed_query
 from infraestructure.qdrant import search_in_qdrant
-from langchain.tools import tool, ToolRuntime
+from langchain.tools import tool
 
-@tool("hora_actual__3", description="Usa esta herramienta cuando el usuario pregunte la hora actual, fecha actual o qué hora es en Perú.")
+
+## PRUEBAS
+
+@tool("hora_actual", description="Usa esta herramienta cuando el usuario pregunte la hora local (Perú), fecha actual o qué hora es en Perú.")
 def hora_actual() -> str:
     """Usa esta herramienta cuando el usuario pregunte la hora actual, fecha actual o qué hora es en Perú."""
     return datetime.now().strftime("%d/%m/%Y %H:%M")
@@ -13,11 +16,6 @@ def hora_actual() -> str:
 def significado_de_la_vida() -> str:
     """Usa esta herramienta cuando el usuario pregunte por el significado de la vida."""
     return "El significado de la vida es 42."   
-@tool("klein_mamani", description="Usa esta herramienta para obtener información sobre Klein Geampier Mamani Catachura.")
-def klein_mamani() -> str:
-    """Usa esta herramienta para obtener información sobre Klein Geampier Mamani Catachura."""
-    return "Klein Geampier Mamani Catachura es mi creador y ahora estamos realizando pruebas para la implementacion del chatbot twilio y Meta de RAG."
-
 
 @tool("retrieve_context", description="Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario.")
 def retrieve_context(user_query: str) -> str:
@@ -25,7 +23,7 @@ def retrieve_context(user_query: str) -> str:
     query_vector = embed_query(user_query).tolist()
 
     results = search_in_qdrant(query_vector)
-    print(results)
+    print("Resultados QDRANT ", results)
     texts = []
 
     for point in results:
@@ -34,23 +32,6 @@ def retrieve_context(user_query: str) -> str:
 
     return "\n\n".join(texts)
 
-
-#ejecutar en casa cuando se pueda descargar el modlo
-""" 
-def retrieve_context(user_query: str) -> str:
-    query_vector = embed_query(user_query).tolist()
-
-    results = search_in_qdrant(query_vector)
-    print(results)
-    texts = []
-
-    for point in results:
-        if point.payload and "text" in point.payload:
-            texts.append(point.payload["text"])
-
-    return "\n\n".join(texts) """
-    
-    
 def get_message(response, model="hf_llm"):
     last_message = response["messages"][-1]
     text_output = ""
