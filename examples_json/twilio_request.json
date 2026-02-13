@@ -1,0 +1,18 @@
+{
+  "SmsMessageSid": "XXXXXXXXXXXXXXXXX",
+  "NumMedia": "0",
+  "ProfileName": "username",
+  "MessageType": "text",
+  "SmsSid": "",
+  "WaId": "11111",
+  "SmsStatus": "received",
+  "Body": "hola",
+  "To": "whatsapp:+1111111",
+  "NumSegments": "1",
+  "ReferralNumMedia": "0",
+  "MessageSid": "SMXXXXXXXXXXXXXXXX",
+  "AccountSid": "ACXXXXXXXXXXXXXXXX",
+  "ChannelMetadata": "{\"type\":\"whatsapp\",\"data\":{\"context\":{\"ProfileName\":\"username\",\"WaId\":\"11111111\"}}}",
+  "From": "whatsapp:+111111",
+  "ApiVersion": "2010-04-01"
+}

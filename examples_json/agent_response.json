@@ -1,0 +1,39 @@
+{
+  "agent_response": {
+    "messages": [
+      {
+        "content": "Dime la hora actual",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "name": null,
+        "id": "a77c1692-41e7-42cf-8cb8-692f09cce80d"
+      },
+      {
+        "content": "ASDASDASDAS",
+        "additional_kwargs": {},
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 282,
+            "prompt_tokens": 55,
+            "total_tokens": 337
+          },
+          "model_name": "MODELNAME",
+          "system_fingerprint": "",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "name": null,
+        "id": "lc_run--019c5251-d2d0-7393-b143-7b43e4c10703-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 55,
+          "output_tokens": 282,
+          "total_tokens": 337
+        }
+      }
+    ]
+  }
+}
