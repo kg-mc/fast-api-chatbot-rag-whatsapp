@@ -3,7 +3,7 @@ from services.meta_wsp_services import config_webhook
 from services.message_service import reply_message
 from utils import safe_get_str
 from models.schemas import MessageSchema
-router = APIRouter( tags=["Meta Webhook"])
+router = APIRouter(prefix="/twilio", tags=["Twilio Webhook"])
 
 
 @router.post("/webhook")

@@ -6,7 +6,7 @@ from config import TWILIO_PHONE_NUMBER
 class MessageService(ABC):
 
     @abstractmethod
-    def send_message(self, to: str, message: str) -> str:
+    def send_message(self, to: str, message: str) -> Optional[str]:
         pass
 
 
@@ -24,7 +24,7 @@ class TwilioService(MessageService):
         
 class MetaService(MessageService):
 
-    def send_message(self, to: str, message: str):
+    def send_message(self, to: str, message: str) -> Optional[str]:
         pass
     
     

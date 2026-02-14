@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, HTTPException
 from services.meta_wsp_services import config_webhook
-router = APIRouter( tags=["Meta Webhook"])
+router = APIRouter( prefix="/meta",tags=["Meta Webhook"])
 ### Aun falta desarrollar
 
 @router.post("/webhook/")

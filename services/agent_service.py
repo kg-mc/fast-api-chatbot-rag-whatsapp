@@ -32,13 +32,23 @@ def retrieve_context(user_query: str) -> str:
 
     return "\n\n".join(texts)
 
+
+
+###
+# Funcion para generar un estandar de respuesta de llm (debido a que cada llm presentaba un formato diferente)
+###
 def get_message(response, model="hf_llm"):
     last_message = response["messages"][-1]
+    messages = response["messages"]
     text_output = ""
     tools_used = []
     if model == "hf_llm":
         text_output = last_message.content if isinstance(last_message.content, str) else ""
-        tools_used = getattr(last_message, "tool_calls", [])
+        tools_used = []
+        for msg in messages:
+            tool_calls = getattr(msg, "tool_calls", None)
+            if tool_calls:
+                tools_used.extend(tool_calls)
     elif model == "gemini_llm":
         text_output = ""
         if isinstance(last_message.content, list):
