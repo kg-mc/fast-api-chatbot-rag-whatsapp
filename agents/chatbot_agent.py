@@ -1,12 +1,12 @@
 from langchain.agents import create_agent
 from infraestructure.llm.hf_llm import hf_llm
 from infraestructure.llm.gemini_llm import gemini_llm
-from services.agent_service import hora_actual, retrieve_context, significado_de_la_vida, get_message
+from services.agent_service import hora_actual, retrieve_context, saludo, get_message, significado_de_la_vida, eje_tematico, lugar_cader, fecha_cader
 from config import system_prompt_0
 
 agent = create_agent(
     model=hf_llm,
-    tools=[hora_actual, significado_de_la_vida, retrieve_context],
+    tools=[hora_actual, saludo, retrieve_context, eje_tematico, lugar_cader, fecha_cader, significado_de_la_vida],
     system_prompt=system_prompt_0
 )
 

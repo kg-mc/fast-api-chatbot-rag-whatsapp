@@ -32,8 +32,23 @@ def retrieve_context(user_query: str) -> str:
 
     return "\n\n".join(texts)
 
+@tool("eje_tematico", description="Usa esta herramienta para obtener el eje temático del CADER XXIV.")
+def eje_tematico() -> str:
+    """Usa esta herramienta para obtener el eje temático del CADER XXIV."""
+    return "El eje temático del CADER XXIV es 'Transformación Digital y Gobernanza Registral: Innovación y fortalecimiento de la confianza ciudadana'."
 
+@tool("saludo"  , description="Usa esta herramienta para saludar al usuario.")
+def saludo() -> str:
+    """Usa esta herramienta para saludar al usuario."""
+    return "¡Hola! ¿En que puedo ayudarte?"
 
+@tool("lugar_cader", description="Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV.")
+def lugar_cader() -> str:
+    """Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV."""
+    return "El CADER XXIV se realizará en la ciudad de Tacna, Perú. La modalidad es semipresencial"
+def fecha_cader() -> str:
+    """Usa esta herramienta para obtener la fecha del CADER XXIV."""
+    return "El CADER XXIV se llevará a cabo del 16 al 18 de julio de 2026."
 ###
 # Funcion para generar un estandar de respuesta de llm (debido a que cada llm presentaba un formato diferente)
 ###
