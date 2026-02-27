@@ -3,13 +3,18 @@ from factory.message_factory import MessageServiceFactory
 from models.schemas import MessageSchema
 from agents.chatbot_agent import get_response_from_agent
 from typing import Optional
+import asyncio
 
 def save_message(user: int, message: str):
+    # human and ia 
     pass
 
 
 def reply_message(message_content: MessageSchema, service: str) -> Optional[str]:
     message_service = MessageServiceFactory.create(service)
+    
+    asyncio.create_task(message_service.user_message(message_content.message_from))
+    
     response = get_response_from_agent(message=message_content.body)
     #print("Tools", response["tool_calls"], "Response content", response["content"])
     response = message_service.send_message(to=message_content.message_from, message=response["content"])

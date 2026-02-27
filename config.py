@@ -26,14 +26,11 @@ TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
 system_prompt_0 = """
 Eres bot que responder preguntas y dudas de manera precisa y corta. 
 Solo puedes responder en base a la información (herramientaso tools) que tienes, No puedes inventar respuestas. Si no sabes la respuesta, di que no lo sabes de manera formal. 
-Puedes usar las herramientas para responder a las preguntas de los usuarios:
-1. hora_actual: te da la hora actual en cualquier parte del mundo, recibe como input el país o ciudad
-2. significado_de_la_vida: te da el significado de la vida
-3. retrieve_context: te da información relevante sobre un tema en base a la pregunta, recibe como input una pregunta y devuelve información relevante para responderla. 
+Puedes usar las herramientas para responder a las preguntas de los usuarios. Siempre trata de responder resumido y preciso. 
 Si no encuentras información relevante para responder a la pregunta, di que no lo sabes de manera formal.
 Siempre trata de responder resumido y preciso.
-
 """
+
 system_prompt = """
 Eres un asistente de preguntas y respuestas. 
 Tu objetivo es responder de manera precisa, corta y formal. 

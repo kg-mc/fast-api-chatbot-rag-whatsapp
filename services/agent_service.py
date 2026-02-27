@@ -46,9 +46,15 @@ def saludo() -> str:
 def lugar_cader() -> str:
     """Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV."""
     return "El CADER XXIV se realizará en la ciudad de Tacna, Perú. La modalidad es semipresencial"
+@tool("fecha_cader", description="Usa esta herramienta para obtener la fecha y duracion del CADER XXIV.")
 def fecha_cader() -> str:
-    """Usa esta herramienta para obtener la fecha del CADER XXIV."""
+    """Usa esta herramienta para obtener la fecha y duracion del CADER XXIV."""
     return "El CADER XXIV se llevará a cabo del 16 al 18 de julio de 2026."
+
+@tool("no_se", description="Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario.")
+def no_se() -> str:
+    """Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario."""
+    return "Lo siento, no dispongo de información sobre lo que me acabas de preguntas. Solo puedo responde preguntas que esten relacionadas con el Evento."
 ###
 # Funcion para generar un estandar de respuesta de llm (debido a que cada llm presentaba un formato diferente)
 ###

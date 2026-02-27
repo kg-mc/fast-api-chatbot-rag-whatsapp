@@ -2,9 +2,14 @@ from abc import ABC, abstractmethod
 from typing import Optional
 from infraestructure.twilio import client as twilio_client
 from config import TWILIO_PHONE_NUMBER
+from services.user_service import user_exists, add_user
 
 class MessageService(ABC):
-
+    async def user_message(self, profile_name: str):
+        if not await user_exists(profile_name):
+            await add_user(profile_name)
+            print(f"Nuevo usuario agregado: {profile_name}")
+            
     @abstractmethod
     def send_message(self, to: str, message: str) -> Optional[str]:
         pass
