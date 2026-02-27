@@ -10,13 +10,13 @@ def save_message(user: int, message: str):
     pass
 
 
-def reply_message(message_content: MessageSchema, service: str) -> Optional[str]:
-    message_service = MessageServiceFactory.create(service)
+def reply_message(message_content, service: str) -> Optional[str]:
+    message_service = MessageServiceFactory.create(service) 
     
-    asyncio.create_task(message_service.user_message(message_content.message_from))
+    if message_service.extract_message_content(message_content):
+        response = get_response_from_agent(message=message_service.get_message_content())
+        #asyncio.create_task(message_service.user_message())
+        #print("Respuesta del agente: ", response["content"])
+        response = message_service.send_message( message=response["content"])
     
-    response = get_response_from_agent(message=message_content.body)
-    #print("Tools", response["tool_calls"], "Response content", response["content"])
-    response = message_service.send_message(to=message_content.message_from, message=response["content"])
-    return response
     

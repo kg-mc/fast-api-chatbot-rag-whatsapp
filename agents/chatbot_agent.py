@@ -30,7 +30,7 @@ def get_response_from_agent(message: str):
             }
         ]
     })
-    print(response)
+    #print(response)
     #last_message = response["messages"][-1]
     
     message_data = get_message(response, model="hf_llm")

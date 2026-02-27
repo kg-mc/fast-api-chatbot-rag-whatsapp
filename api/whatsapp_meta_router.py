@@ -1,23 +1,24 @@
 from fastapi import APIRouter, Request, HTTPException
-from services.meta_wsp_services import config_webhook
+from fastapi.responses import PlainTextResponse
+from services.message_service import reply_message
+from config import META_VERIFY_TOKEN
 router = APIRouter( prefix="/meta",tags=["Meta Webhook"])
 ### Aun falta desarrollar
 
-@router.post("/webhook/")
-def webhook_handler(message: str):
-    return {
-        "status": "Webhook received",
-        "message": message
-    }
-    
-@router.get("/webhook/")
-def webhook_get(request: Request):
-    query_params = request.query_params
-
-    hub_mode = query_params.get("hub.mode")
-    hub_challenge = query_params.get("hub.challenge")
-    hub_verify_token = query_params.get("hub.verify_token")
-    if not hub_mode or not hub_challenge or not hub_verify_token:
-        raise HTTPException(status_code=400, detail="Falta parametros en la solicitud")
-    
-    return config_webhook(hub_mode, hub_challenge, hub_verify_token)
+@router.post("/webhook")
+async def receive_message(request: Request):
+    body = await request.json()
+    try:
+        reply_message(body, service="meta")
+    except Exception as e:
+        print("Error:", e)
+        
+@router.get("/webhook")
+async def verify_webhook(request: Request):
+    token = request.query_params.get("hub.verify_token")
+    challenge = request.query_params.get("hub.challenge")
+    if token == META_VERIFY_TOKEN:
+        print("TOKEN VALIDO.")
+        return PlainTextResponse(content=challenge, status_code=200)
+    else:
+        raise HTTPException(status_code=403, detail="Token INVALIDO")
