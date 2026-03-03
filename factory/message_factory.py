@@ -69,6 +69,7 @@ class MetaService(MessageService):
             response = requests.post(f"https://graph.facebook.com/v22.0/{META_PHONE_NUMBER_ID}/messages", headers=headers, json=payload)
             if response.status_code == 200:
                 #print(f"Mensaje enviado a {self.message_content.message_from} a través de Meta, mensaje: {message}")
+                print(f"{self.message_content.profile_name} - {self.message_content.message_from} - {self.message_content.body}. \n Bot: {message} \n")
                 return response.json().get("message_id")
         except Exception as e:
             print(f"Error al enviar mensaje a través de Meta: {e}")

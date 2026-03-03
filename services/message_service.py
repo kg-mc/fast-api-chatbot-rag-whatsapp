@@ -19,4 +19,3 @@ def reply_message(message_content, service: str) -> Optional[str]:
         #print("Respuesta del agente: ", response["content"])
         response = message_service.send_message( message=response["content"])
     
-    
