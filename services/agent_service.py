@@ -10,12 +10,7 @@ from langchain.tools import tool
 @tool("hora_actual", description="Usa esta herramienta cuando el usuario pregunte la hora local (Perú), fecha actual o qué hora es en Perú.")
 def hora_actual() -> str:
     """Usa esta herramienta cuando el usuario pregunte la hora actual, fecha actual o qué hora es en Perú."""
-    return datetime.now().strftime("%d/%m/%Y %H:%M")
-
-@tool("significado_de_la_vida", description="Usa esta herramienta cuando el usuario pregunte por el significado de la vida.")
-def significado_de_la_vida() -> str:
-    """Usa esta herramienta cuando el usuario pregunte por el significado de la vida."""
-    return "El significado de la vida es 42."   
+    return datetime.now().strftime("%d/%m/%Y %H:%M")   
 
 @tool("retrieve_context", description="Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario.")
 def retrieve_context(user_query: str) -> str:
@@ -46,15 +41,25 @@ def saludo() -> str:
 def lugar_cader() -> str:
     """Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV."""
     return "El CADER XXIV se realizará en la ciudad de Tacna, Perú. La modalidad es semipresencial"
+
 @tool("fecha_cader", description="Usa esta herramienta para obtener la fecha y duracion del CADER XXIV.")
 def fecha_cader() -> str:
     """Usa esta herramienta para obtener la fecha y duracion del CADER XXIV."""
     return "El CADER XXIV se llevará a cabo del 16 al 18 de julio de 2026."
 
+@tool("about_me", description="Usa esta herramienta para responder preguntas sobre ti mismo, como quién eres, qué puedes hacer, etc.")
+def about_me() -> str:
+    """Usa esta herramienta para responder preguntas sobre ti mismo, como quién eres, qué puedes hacer, etc."""
+    return "Soy un asistente virtual diseñado para proporcionar información sobre el CADER XXIV y responder preguntas relacionadas con el evento. Puedo ayudarte a conocer detalles sobre el lugar, fecha, eje temático y otros aspectos relevantes del evento. ¿En qué más puedo ayudarte?"
+
+@tool("about_cader", description="Usa esta herramienta para responder preguntas sobre el CADER XXIV, como qué es, quiénes lo organizan, etc.")
+def about_cader() -> str:
+    return "El Congreso Anual de Derecho Registral Sunarp (CADER XXIV) es un evento anual organizado por la Superintendencia Nacional de los Registros Públicos (Sunarp) que reúne a profesionales del derecho registral, académicos, y representantes de instituciones públicas y privadas para discutir temas relacionados con el registro público de la propiedad."
+
 @tool("no_se", description="Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario.")
 def no_se() -> str:
     """Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario."""
-    return "Lo siento, no dispongo de información sobre lo que me acabas de preguntas. Solo puedo responde preguntas que esten relacionadas con el Evento."
+    return "Lo siento, no dispongo de información sobre lo que me acabas de preguntas. Solo puedo responder preguntas que esten relacionadas con el Evento."
 ###
 # Funcion para generar un estandar de respuesta de llm (debido a que cada llm presentaba un formato diferente)
 ###
