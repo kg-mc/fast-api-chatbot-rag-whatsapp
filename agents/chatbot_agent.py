@@ -1,11 +1,14 @@
 from langchain.agents import create_agent
-from infraestructure.llm.hf_llm import hf_llm
-from infraestructure.llm.gemini_llm import gemini_llm
 from services.agent_service import hora_actual, retrieve_context, saludo, get_message, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se
-from config import system_prompt_0
+from config import system_prompt_0, llm_model
+from factory.llm_factory import LLMFactory
+
+llm_service = LLMFactory.create_llm_service(llm_type=llm_model)
+llm = llm_service.get_llm()
+
 
 agent = create_agent(
-    model=hf_llm,
+    model=llm,
     tools=[hora_actual, saludo, retrieve_context, eje_tematico, lugar_cader, fecha_cader, about_cader, about_me, no_se],
     system_prompt=system_prompt_0
 )

@@ -26,6 +26,16 @@ ACCOUNT_SID_TWILIO = os.getenv("TWILIO_ACCOUNT_SID")
 AUTH_TOKEN_TWILIO = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
 
+LLM_MODEL_NAME_HF = os.getenv("MODEL_NAME_HF")
+LLM_MODEL_NAME_GEMINI = os.getenv("MODEL_NAME_GEMINI")
+
+
+#EMBEDDINGS
+EMBEDDINGS_MODEL_NAME_HF = os.getenv("EMBEDDINGS_MODEL_NAME_HF")
+EMBEDDINGS_MODEL_NAME_GEMINI = os.getenv("EMBEDDINGS_MODEL_NAME_GEMINI")
+
+llm_model = "huggingface"
+embbeding_model = "huggingface"
 
 system_prompt_0 = """
 Eres bot que responder preguntas y dudas de manera precisa y corta. 

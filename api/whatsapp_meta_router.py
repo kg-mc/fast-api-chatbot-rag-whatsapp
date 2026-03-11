@@ -2,8 +2,8 @@ from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import PlainTextResponse
 from services.message_service import reply_message
 from config import META_VERIFY_TOKEN
+
 router = APIRouter( prefix="/meta",tags=["Meta Webhook"])
-### Aun falta desarrollar
 
 @router.post("/webhook")
 async def receive_message(request: Request):

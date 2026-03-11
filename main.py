@@ -3,7 +3,7 @@ from api.whatsapp_meta_router import router as meta_router
 from api.tests_services_router import router as tests_router
 from api.twilio_router import router as twilio_router
 from contextlib import asynccontextmanager
-
+from config import embbeding_model, llm_model
 #
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -11,8 +11,8 @@ async def lifespan(app: FastAPI):
     print("🚀 CONFIGURACIONES DEL BOT DE WHATSAPP")
     print("="*40)
     
-    print(f"[+] Modelo de IA generativa: openai/gpt-oss-120b")
-    print(f"[+] Modelo de embeddings: BAAI/bge-m3")
+    print(f"[+] Modelo de IA generativa: {llm_model}")
+    print(f"[+] Modelo de embeddings: {embbeding_model}")
     print(f"[+] Base de datos: postgresql - Supabase")
     print(f"[+] Servicios de mensajería: Twilio y Meta (WhatsApp Business API)")
     print(f"[+] Vector database: Qdrant")

@@ -1,11 +1,14 @@
 from datetime import datetime
 
-from infraestructure.embbedings.embbedings import embed_query
 from infraestructure.qdrant import search_in_qdrant
 from langchain.tools import tool
+from config import embbeding_model
+from factory.embbedings_factory import EmbeddingsFactory
+
+embedding_service = EmbeddingsFactory.create_embeddings_service(embeddings_type=embbeding_model)
+embedding_service.generate()
 
 
-## PRUEBAS
 
 @tool("hora_actual", description="Usa esta herramienta cuando el usuario pregunte la hora local (Perú), fecha actual o qué hora es en Perú.")
 def hora_actual() -> str:
@@ -15,7 +18,7 @@ def hora_actual() -> str:
 @tool("retrieve_context", description="Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario.")
 def retrieve_context(user_query: str) -> str:
     """Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario."""
-    query_vector = embed_query(user_query).tolist()
+    query_vector = embedding_service.embed_query(user_query)
 
     results = search_in_qdrant(query_vector)
     print("Resultados QDRANT ", results)

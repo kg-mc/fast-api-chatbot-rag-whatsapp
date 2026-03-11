@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Request, HTTPException
-from services.meta_wsp_services import config_webhook
+from fastapi import APIRouter, Request
 from services.message_service import reply_message
-from models.schemas import MessageSchema
+
 router = APIRouter(prefix="/twilio", tags=["Twilio Webhook"])
 
 
