@@ -40,7 +40,7 @@ def eje_tematico() -> str:
 @tool("saludo"  , description="Usa esta herramienta para saludar al usuario.")
 def saludo() -> str:
     """Usa esta herramienta para saludar al usuario."""
-    return "¡Hola! ¿En que puedo ayudarte?"
+    return "¡Hola! Mi nombre es CaderBot  y estoy a tu disposición para cualquier información relacionada con el CADER XXIV. ¿En qué puedo ayudarte hoy?"
 
 @tool("lugar_cader", description="Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV.")
 def lugar_cader() -> str:
