@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from infraestructure.supabase import test_conection_db
 from agents.chatbot_agent import get_test_agent, get_response_from_agent
-from infraestructure.qdrant import test_conection_qdrant
+from services.agent_service import vectordb_service
 router = APIRouter(tags=["PRUEBA DE SERVICIOS"])
 
 
@@ -19,11 +19,11 @@ def health_check():
     except Exception as e:
         return {"status": "error", "message": str(e)}
     
-@router.get("/test-qdrant", description="Prueba la conexión con Qdrant.")
-def test_qdrant():
+@router.get("/test-vectordb", description="Prueba la conexión con la base de datos vectorial.")
+def test_vectordb():
     try:
-        qdrant_response = test_conection_qdrant()
-        return {"status": "ok", "qdrant_response": qdrant_response}
+        vectordb_response = vectordb_service.test_bd()
+        return {"status": "ok", "vectordb_response": vectordb_response}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 

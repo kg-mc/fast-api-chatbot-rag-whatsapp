@@ -3,7 +3,7 @@ from api.whatsapp_meta_router import router as meta_router
 from api.tests_services_router import router as tests_router
 from api.twilio_router import router as twilio_router
 from contextlib import asynccontextmanager
-from config import embbeding_model, llm_model
+from config import embbeding_model, llm_model, vectordb_name
 #
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -15,7 +15,7 @@ async def lifespan(app: FastAPI):
     print(f"[+] Modelo de embeddings: {embbeding_model}")
     print(f"[+] Base de datos: postgresql - Supabase")
     print(f"[+] Servicios de mensajería: Twilio y Meta (WhatsApp Business API)")
-    print(f"[+] Vector database: Qdrant")
+    print(f"[+] Vector database: {vectordb_name}")
     print("="*40 + "\n")
 
     yield

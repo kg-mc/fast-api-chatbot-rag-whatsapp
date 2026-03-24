@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
-from config import TOKEN_HF, LLM_MODEL_NAME_HF, LLM_MODEL_NAME_GEMINI
+from config import TOKEN_HF, LLM_MODEL_NAME_HF, LLM_MODEL_NAME_GEMINI, LLM_MODEL_NAME_OPENAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.language_models.chat_models import BaseChatModel
-
+from langchain_openai import ChatOpenAI
 class LlmService(ABC):
     
     @abstractmethod
@@ -77,6 +77,17 @@ class GeminiService(LlmService):
             )
         return gemini_llm
     
+class OpenAiService(LlmService):
+    def __init__(self, model_name: str):
+        self.model_name = model_name
+
+    def get_message(self, response):
+        return response
+
+    def get_llm(self)-> BaseChatModel:
+        openai_llm = ChatOpenAI(model=self.model_name, temperature=0.2, max_completion_tokens=500)
+        return openai_llm
+    
 class LLMFactory:
     @staticmethod
     def create_llm_service(llm_type: str, model_name: str = "") -> LlmService:
@@ -89,4 +100,8 @@ class LLMFactory:
             if model_name == "":
                 model_name = str(LLM_MODEL_NAME_GEMINI)
             return GeminiService(model_name)
+        elif llm_type == "openai":
+            if model_name == "":
+                model_name = str(LLM_MODEL_NAME_OPENAI)
+            return OpenAiService(model_name)
         raise ValueError(f"Tipo de LLM no soportado: {llm_type}")

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
-from urllib import response
-from urllib import response
+from openai import OpenAI
 from config import EMBEDDINGS_MODEL_NAME_HF, EMBEDDINGS_MODEL_NAME_GEMINI
 from sentence_transformers import SentenceTransformer
 from google.genai import Client
@@ -53,7 +52,25 @@ class GeminiEmbeddingsService(EmbeddingsService):
         embedding_vector = torch.tensor(response.embeddings[0].values)
         
         return embedding_vector.tolist()
-    
+
+class OpenAIEmbeddingsService(EmbeddingsService):
+    def __init__(self, model_name: str):
+        self.model_name = model_name
+        self.client = OpenAI()
+    def generate(self):
+        pass
+    def embed_query(self, query: str) -> list[float]:
+        response = self.client.embeddings.create(
+            model=self.model_name,
+            input=query
+        )
+
+        if not response.data:
+            raise ValueError("No se generó embedding para la query")
+
+        embedding_vector = response.data[0].embedding
+
+        return embedding_vector
 
 class EmbeddingsFactory:
     @staticmethod
@@ -66,5 +83,9 @@ class EmbeddingsFactory:
             if model_name == "":
                 model_name = str(EMBEDDINGS_MODEL_NAME_GEMINI)
             return GeminiEmbeddingsService(model_name)
+        elif embeddings_type == "openai":
+            if model_name == "":
+                model_name = "text-embedding-3-small"
+            return OpenAIEmbeddingsService(model_name)
         else:
             raise ValueError(f"Tipo de embeddings no soportado: {embeddings_type}")

@@ -1,13 +1,13 @@
 from datetime import datetime
-
-from infraestructure.qdrant import search_in_qdrant
 from langchain.tools import tool
-from config import embbeding_model
+from config import embbeding_model, vectordb_name
 from factory.embbedings_factory import EmbeddingsFactory
+from factory.vectordb_factory import VectorDBFactory
+
 
 embedding_service = EmbeddingsFactory.create_embeddings_service(embeddings_type=embbeding_model)
 embedding_service.generate()
-
+vectordb_service = VectorDBFactory.get_vectordb_service(vectordb_name)
 
 
 @tool("hora_actual", description="Usa esta herramienta cuando el usuario pregunte la hora local (Perú), fecha actual o qué hora es en Perú.")
@@ -17,17 +17,19 @@ def hora_actual() -> str:
 
 @tool("retrieve_context", description="Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario.")
 def retrieve_context(user_query: str) -> str:
-    """Usa esta herramienta para obtener contexto relevante para responder a la consulta del usuario."""
     query_vector = embedding_service.embed_query(user_query)
 
-    results = search_in_qdrant(query_vector)
-    print("Resultados QDRANT ", results)
+    results = vectordb_service.search(query_vector) or []
+    results = sorted(results, key=lambda x: x["score"], reverse=True)
+    filtered = [r for r in results if r["score"] > 0.2]
+    top_results = filtered
+    print("Resultados vector-db ", top_results)
     texts = []
-
-    for point in results:
-        if point.payload and "text" in point.payload:
-            texts.append(point.payload["text"])
-
+    for point in top_results:
+        payload = point.get("payload", {})
+        text = payload.get("text") or payload.get("content")
+        if text:
+            texts.append(text)
     return "\n\n".join(texts)
 
 @tool("eje_tematico", description="Usa esta herramienta para obtener el eje temático del CADER XXIV.")

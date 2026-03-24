@@ -16,10 +16,22 @@ def test_conection_qdrant():
 collection_name = QDRANT_COLLECTION_NAME or "collection"
 
 def search_in_qdrant(query_vector: list[float], top_k: int = 5):
-    search_result = qdrant_client.query_points(
-        collection_name=collection_name,
-        query=query_vector,
-        limit=top_k
-    )
+    try:
+        search_result = qdrant_client.query_points(
+            collection_name=collection_name,
+            query=query_vector,
+            limit=top_k
+        )
 
-    return search_result.points
+        return [
+            {
+                "id": point.id,
+                "score": point.score,
+                "payload": point.payload or {}
+            }
+            for point in search_result.points
+        ]
+
+    except Exception as e:
+        print("Error en Qdrant:", e)
+        return []
