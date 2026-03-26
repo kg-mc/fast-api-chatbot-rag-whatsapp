@@ -19,7 +19,7 @@ def hora_actual() -> str:
 def retrieve_context(user_query: str) -> str:
     query_vector = embedding_service.embed_query(user_query)
 
-    results = vectordb_service.search(query_vector) or []
+    results = vectordb_service.search(query_vector, top_k=2) or []
     results = sorted(results, key=lambda x: x["score"], reverse=True)
     filtered = [r for r in results if r["score"] > 0.2]
     top_results = filtered
