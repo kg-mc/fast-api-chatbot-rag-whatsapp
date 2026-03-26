@@ -2,6 +2,7 @@ from langchain.agents import create_agent
 from services.agent_service import hora_actual, retrieve_context, saludo, get_message, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se, servicios_taxi
 from config import system_prompt_0, llm_model
 from factory.llm_factory import LLMFactory
+from services.message_service import get_history
 
 llm_service = LLMFactory.create_llm_service(llm_type=llm_model)
 llm = llm_service.get_llm()
@@ -36,6 +37,24 @@ def get_response_from_agent(message: str):
     #print(response)
     #last_message = response["messages"][-1]
     
-    message_data = get_message(response, model=llm_model)
+    #message_data = get_message(response, model=llm_model)
+    message_data = llm_service.get_message(response)
 
+    return message_data
+
+def get_response_from_agent_w_history(message: str, user_id):
+    history = get_history(user_id)
+    response = agent.invoke({
+        "messages": history + [
+            {
+                "role": "user",
+                "content": message
+            }
+        ]
+    })
+    #print(response)
+    #last_message = response["messages"][-1]
+    
+    #message_data = get_message(response, model=llm_model)
+    message_data = llm_service.get_message(response)
     return message_data

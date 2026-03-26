@@ -7,7 +7,7 @@ from langchain_openai import ChatOpenAI
 class LlmService(ABC):
     
     @abstractmethod
-    def get_message(self, response):
+    def get_message(self, response) -> dict:
         pass
     
     @abstractmethod
@@ -82,7 +82,24 @@ class OpenAiService(LlmService):
         self.model_name = model_name
 
     def get_message(self, response):
-        return response
+        last_message = response["messages"][-1]
+        messages = response["messages"]
+        tool_message_content = None
+        tools_used = []
+        for msg in messages:
+            if hasattr(msg, "tool_calls") and msg.tool_calls:
+                tools_used.extend(msg.tool_calls)
+            if msg.__class__.__name__ == "ToolMessage":
+                tool_message_content = msg.content
+
+        if tool_message_content:
+            text_output = tool_message_content
+        else:
+            text_output = last_message.content if isinstance(last_message.content, str) else ""
+        return {
+            "content": text_output, 
+            "tool_calls": tools_used
+        }
 
     def get_llm(self)-> BaseChatModel:
         openai_llm = ChatOpenAI(model=self.model_name, temperature=0.2, max_completion_tokens=500)

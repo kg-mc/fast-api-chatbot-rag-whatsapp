@@ -17,6 +17,8 @@ class MessageService(ABC):
             print(f"Nuevo usuario agregado: {profile_name}")
     def get_message_content(self):
         return self.message_content.body
+    def get_message_from(self):
+        return self.message_content.message_from
     @abstractmethod
     def send_message(self, message: str) -> Optional[str]:
         pass
