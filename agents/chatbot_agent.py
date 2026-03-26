@@ -1,5 +1,5 @@
 from langchain.agents import create_agent
-from services.agent_service import hora_actual, retrieve_context, saludo, get_message, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se, servicios_taxi
+from services.agent_service import hora_actual, retrieve_context, saludo, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se, servicios_taxi
 from config import system_prompt_0, llm_model
 from factory.llm_factory import LLMFactory
 

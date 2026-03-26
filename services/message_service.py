@@ -31,6 +31,4 @@ def save_message(user_id, role, content):
         "role": role,
         "content": content
     })
-
-    # limitar memoria
     sessions[user_id] = sessions[user_id][-6:]

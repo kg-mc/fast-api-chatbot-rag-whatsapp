@@ -82,22 +82,22 @@ class OpenAiService(LlmService):
         self.model_name = model_name
 
     def get_message(self, response):
-        last_message = response["messages"][-1]
         messages = response["messages"]
-        tool_message_content = None
         tools_used = []
+
         for msg in messages:
             if hasattr(msg, "tool_calls") and msg.tool_calls:
                 tools_used.extend(msg.tool_calls)
-            if msg.__class__.__name__ == "ToolMessage":
-                tool_message_content = msg.content
+        last_ai_message = None
+        for msg in reversed(messages):
+            if msg.__class__.__name__ == "AIMessage" and msg.content:
+                last_ai_message = msg
+                break
 
-        if tool_message_content:
-            text_output = tool_message_content
-        else:
-            text_output = last_message.content if isinstance(last_message.content, str) else ""
+        text_output = last_ai_message.content if last_ai_message else ""
+
         return {
-            "content": text_output, 
+            "content": text_output,
             "tool_calls": tools_used
         }
 
