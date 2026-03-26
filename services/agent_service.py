@@ -23,14 +23,14 @@ def retrieve_context(user_query: str) -> str:
     results = sorted(results, key=lambda x: x["score"], reverse=True)
     filtered = [r for r in results if r["score"] > 0.2]
     top_results = filtered
-    print("Resultados vector-db ", top_results)
+    #print("Resultados vector-db ", top_results)
     texts = []
     for point in top_results:
         payload = point.get("payload", {})
         text = payload.get("text") or payload.get("content")
         if text:
             texts.append(text)
-    return "\n\n".join(texts)
+    return "".join(texts)
 
 @tool("eje_tematico", description="Usa esta herramienta para obtener el eje temático del CADER XXIV.")
 def eje_tematico() -> str:
