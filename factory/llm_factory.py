@@ -91,16 +91,16 @@ class OpenAiService(LlmService):
 class LLMFactory:
     @staticmethod
     def create_llm_service(llm_type: str, model_name: str = "") -> LlmService:
-        if llm_type == "huggingface":
+        if llm_type == "hg_llm":
             if model_name == "":
                 model_name = str(LLM_MODEL_NAME_HF)
             return HuggingFaceService(model_name)
         
-        elif llm_type == "gemini":
+        elif llm_type == "gemini_llm":
             if model_name == "":
                 model_name = str(LLM_MODEL_NAME_GEMINI)
             return GeminiService(model_name)
-        elif llm_type == "openai":
+        elif llm_type == "openai_llm":
             if model_name == "":
                 model_name = str(LLM_MODEL_NAME_OPENAI)
             return OpenAiService(model_name)

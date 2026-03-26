@@ -78,7 +78,6 @@ def get_message(response, model="hf_llm"):
     tools_used = []
     if model == "hf_llm":
         text_output = last_message.content if isinstance(last_message.content, str) else ""
-        tools_used = []
         for msg in messages:
             tool_calls = getattr(msg, "tool_calls", None)
             if tool_calls:
@@ -90,10 +89,25 @@ def get_message(response, model="hf_llm"):
         else:
             text_output = str(last_message.content)
 
-        tools_used = []
         if hasattr(last_message, 'tool_calls') and last_message.tool_calls:
             tools_used = [call.name for call in last_message.tool_calls]
-    
+    elif model == "openai_llm":
+
+        tool_message_content = None
+
+        for msg in messages:
+            # Detectar tool calls
+            if hasattr(msg, "tool_calls") and msg.tool_calls:
+                tools_used.extend(msg.tool_calls)
+
+            # Detectar salida de tool
+            if msg.__class__.__name__ == "ToolMessage":
+                tool_message_content = msg.content
+
+        if tool_message_content:
+            text_output = tool_message_content
+        else:
+            text_output = last_message.content if isinstance(last_message.content, str) else ""
     return {
         "content": text_output, 
         "tool_calls": tools_used

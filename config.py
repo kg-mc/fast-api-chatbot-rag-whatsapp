@@ -38,7 +38,7 @@ EMBEDDINGS_MODEL_NAME_OPENAI = os.getenv("EMBEDDINGS_MODEL_NAME_OPENAI")
 PINECONE_API_KEY= os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "test")  
 
-llm_model = "huggingface"
+llm_model = "openai_llm"
 embbeding_model = "openai"
 vectordb_name="pinecone"
 
