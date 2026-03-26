@@ -16,7 +16,7 @@ def reply_message(message_content, service: str) -> Optional[str]:
         _response = message_service.send_message( message=response["content"])
         save_message(user_id=message_service.get_message_from(), role="user", content=message_service.get_message_content())
         save_message(user_id=message_service.get_message_from(), role="assistant", content=response["content"])
-        print(get_history(message_service.get_message_from()))
+        #print(get_history(message_service.get_message_from()))
     
 
 
