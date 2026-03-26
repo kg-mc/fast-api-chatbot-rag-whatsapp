@@ -1,5 +1,5 @@
 from langchain.agents import create_agent
-from services.agent_service import hora_actual, retrieve_context, saludo, get_message, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se
+from services.agent_service import hora_actual, retrieve_context, saludo, get_message, about_cader, about_me, eje_tematico, lugar_cader, fecha_cader, no_se, servicios_taxi
 from config import system_prompt_0, llm_model
 from factory.llm_factory import LLMFactory
 
@@ -9,7 +9,7 @@ llm = llm_service.get_llm()
 
 agent = create_agent(
     model=llm,
-    tools=[hora_actual, saludo, retrieve_context, eje_tematico, lugar_cader, fecha_cader, about_cader, about_me, no_se],
+    tools=[hora_actual, retrieve_context, eje_tematico, saludo, lugar_cader, fecha_cader, about_me, about_cader, no_se, servicios_taxi],
     system_prompt=system_prompt_0
 )
 
@@ -18,7 +18,7 @@ def get_test_agent():
         "messages": [
             {
                 "role": "user", 
-                "content": "Dime la hora a  ctual en Perú"
+                "content": "Dime la hora actual en Perú"
              }
         ]
     })

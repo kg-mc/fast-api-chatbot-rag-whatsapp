@@ -37,9 +37,9 @@ def eje_tematico() -> str:
     """Usa esta herramienta para obtener el eje temático del CADER XXIV."""
     return "El eje temático del CADER XXIV es 'Transformación Digital y Gobernanza Registral: Innovación y fortalecimiento de la confianza ciudadana'."
 
-@tool("saludo"  , description="Usa esta herramienta para saludar al usuario.")
+@tool("saludo"  , description="Usa esta herramienta para saludar al usuario y presentarte en caso te diga Hola.")
 def saludo() -> str:
-    """Usa esta herramienta para saludar al usuario."""
+    """Usa esta herramienta para saludar al usuario y presentarte en caso te diga Hola. o salude"""
     return "¡Hola! Mi nombre es CaderBot  y estoy a tu disposición para cualquier información relacionada con el CADER XXIV. ¿En qué puedo ayudarte hoy?"
 
 @tool("lugar_cader", description="Usa esta herramienta para obtener el lugar donde se realizará el CADER XXIV.")
@@ -59,13 +59,16 @@ def about_me() -> str:
 
 @tool("about_cader", description="Usa esta herramienta para responder preguntas sobre el CADER XXIV, como qué es, quiénes lo organizan, etc.")
 def about_cader() -> str:
-    return "El Congreso Anual de Derecho Registral Sunarp (CADER XXIV) es un evento anual organizado por la Superintendencia Nacional de los Registros Públicos (Sunarp) que reúne a profesionales del derecho registral, académicos, y representantes de instituciones públicas y privadas para discutir temas relacionados con el registro público de la propiedad."
+    return "El Congreso Anual de Derecho Registral Sunarp (CADER XXIV) es un evento anual organizado por la Superintendencia Nacional de los Registros Públicos (Sunarp) que reúne a expertos en derecho registral, notarial y temas afines para analizar tendencias, reformas legales y jurisprudencia relevante. La edicion XXIV se llevará a cabo del 16 al 18 de julio de 2026 en Tacna, Perú. El evento ofrece una plataforma para el intercambio de conocimientos, experiencias y mejores prácticas en el ámbito registral, con la participación de profesionales, académicos y autoridades del sector."
 
 @tool("no_se", description="Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario.")
 def no_se() -> str:
     """Usa esta herramienta para responder de manera formal que no se tiene información sobre la consulta del usuario."""
-    return "Lo siento, no dispongo de información sobre lo que me acabas de preguntas. Solo puedo responder preguntas que esten relacionadas con el Evento."
+    return "Lo siento, no dispongo de información sobre lo que me acabas de preguntar. Solo puedo responder preguntas que esten relacionadas con el Evento. Si consideras que tu pregunta es relevante para el evento, por favor reformula tu consulta."
 ###
+@tool("servicios_taxi", description="Usa esta herramienta para responder preguntas sobre servicios de taxi en Tacna, Perú.")
+def servicios_taxi() -> str:
+    return "Para obtener información sobre servicios de taxi en Tacna. \n - Radio Taxi 300 Telf. 931300300/052-414488 \n -Radio Taxi Pavill Telf. 952000795/052-310909 \n -Taxitel Telf. 908884820 \n -Radio Taxi Torval Telf. 956588832"
 # Funcion para generar un estandar de respuesta de llm (debido a que cada llm presentaba un formato diferente)
 ###
 def get_message(response, model="hf_llm"):
